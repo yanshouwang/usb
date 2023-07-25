@@ -10,8 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  usb_platform_interface:
-    path: ../usb_platform_interface
+  usb_platform_interface: ^0.0.1
 
 dev_dependencies:
   flutter_test:
