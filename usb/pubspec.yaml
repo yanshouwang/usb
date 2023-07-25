@@ -1,5 +1,5 @@
 name: usb
-description: A new Flutter plugin project.
+description: A Flutter plugin for controlling the usb.
 version: 0.0.1
 homepage: https://github.com/yanshouwang/usb
 

@@ -1,5 +1,5 @@
 name: usb_platform_interface
-description: A new Flutter plugin project.
+description: A common platform interface for the usb plugin.
 version: 0.0.1
 homepage: https://github.com/yanshouwang/usb
 
