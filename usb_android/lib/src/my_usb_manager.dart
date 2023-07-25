@@ -45,8 +45,8 @@ class MyUsbManager extends UsbManager {
   }
 
   @override
-  Future<void> initialize() {
-    return Future.sync(() {
+  Future<void> initialize() async {
+    await Future.sync(() {
       MyUsbBroadcastReceiverFlutterApi.setup(myUsbBroadcastReceiverApi);
     });
   }
