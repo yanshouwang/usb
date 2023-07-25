@@ -122,12 +122,12 @@ class MyUsbManagerHostApi {
   ///
   /// Requires the PackageManager#FEATURE_USB_ACCESSORY feature which can be detected using
   /// PackageManager.hasSystemFeature(String).
-  Future<bool> hasAccessoryPermission(int arg_accessoryHashCode) async {
+  Future<bool> hasAccessoryPermission(int arg_hashCode) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.usb_android.MyUsbManagerHostApi.hasAccessoryPermission', codec,
         binaryMessenger: _binaryMessenger);
     final List<Object?>? replyList =
-        await channel.send(<Object?>[arg_accessoryHashCode]) as List<Object?>?;
+        await channel.send(<Object?>[arg_hashCode]) as List<Object?>?;
     if (replyList == null) {
       throw PlatformException(
         code: 'channel-error',
@@ -149,47 +149,12 @@ class MyUsbManagerHostApi {
     }
   }
 
-  /// Returns true if the caller has permission to access the device. Permission might have been granted temporarily via
-  /// requestPermission(android.hardware.usb.UsbDevice, android.app.PendingIntent) or by the user
-  /// choosing the caller as the default application for the device. Permission for USB devices of class
-  /// UsbConstants#USB_CLASS_VIDEO for clients that target SDK Build.VERSION_CODES.P and above can be granted
-  /// only if they have additionally the Manifest.permission.CAMERA permission.
-  ///
-  /// Requires the PackageManager#FEATURE_USB_HOST feature which can be detected using
-  /// PackageManager.hasSystemFeature(String).
-  Future<bool> hasDevicePermission(int arg_deviceHashCode) async {
-    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.usb_android.MyUsbManagerHostApi.hasDevicePermission', codec,
-        binaryMessenger: _binaryMessenger);
-    final List<Object?>? replyList =
-        await channel.send(<Object?>[arg_deviceHashCode]) as List<Object?>?;
-    if (replyList == null) {
-      throw PlatformException(
-        code: 'channel-error',
-        message: 'Unable to establish connection on channel.',
-      );
-    } else if (replyList.length > 1) {
-      throw PlatformException(
-        code: replyList[0]! as String,
-        message: replyList[1] as String?,
-        details: replyList[2],
-      );
-    } else if (replyList[0] == null) {
-      throw PlatformException(
-        code: 'null-error',
-        message: 'Host platform returned null value for non-null return value.',
-      );
-    } else {
-      return (replyList[0] as bool?)!;
-    }
-  }
-
-  Future<void> requestAccessoryPermission(int arg_accessoryHashCode) async {
+  Future<void> requestAccessoryPermission(int arg_hashCode) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.usb_android.MyUsbManagerHostApi.requestAccessoryPermission', codec,
         binaryMessenger: _binaryMessenger);
     final List<Object?>? replyList =
-        await channel.send(<Object?>[arg_accessoryHashCode]) as List<Object?>?;
+        await channel.send(<Object?>[arg_hashCode]) as List<Object?>?;
     if (replyList == null) {
       throw PlatformException(
         code: 'channel-error',
@@ -206,12 +171,47 @@ class MyUsbManagerHostApi {
     }
   }
 
-  Future<void> requestDevicePermission(int arg_deviceHashCode) async {
+  /// Returns true if the caller has permission to access the device. Permission might have been granted temporarily via
+  /// requestPermission(android.hardware.usb.UsbDevice, android.app.PendingIntent) or by the user
+  /// choosing the caller as the default application for the device. Permission for USB devices of class
+  /// UsbConstants#USB_CLASS_VIDEO for clients that target SDK Build.VERSION_CODES.P and above can be granted
+  /// only if they have additionally the Manifest.permission.CAMERA permission.
+  ///
+  /// Requires the PackageManager#FEATURE_USB_HOST feature which can be detected using
+  /// PackageManager.hasSystemFeature(String).
+  Future<bool> hasDevicePermission(int arg_hashCode) async {
+    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.usb_android.MyUsbManagerHostApi.hasDevicePermission', codec,
+        binaryMessenger: _binaryMessenger);
+    final List<Object?>? replyList =
+        await channel.send(<Object?>[arg_hashCode]) as List<Object?>?;
+    if (replyList == null) {
+      throw PlatformException(
+        code: 'channel-error',
+        message: 'Unable to establish connection on channel.',
+      );
+    } else if (replyList.length > 1) {
+      throw PlatformException(
+        code: replyList[0]! as String,
+        message: replyList[1] as String?,
+        details: replyList[2],
+      );
+    } else if (replyList[0] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (replyList[0] as bool?)!;
+    }
+  }
+
+  Future<void> requestDevicePermission(int arg_hashCode) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.usb_android.MyUsbManagerHostApi.requestDevicePermission', codec,
         binaryMessenger: _binaryMessenger);
     final List<Object?>? replyList =
-        await channel.send(<Object?>[arg_deviceHashCode]) as List<Object?>?;
+        await channel.send(<Object?>[arg_hashCode]) as List<Object?>?;
     if (replyList == null) {
       throw PlatformException(
         code: 'channel-error',

@@ -38,7 +38,8 @@ abstract class MyUsbManagerHostApi {
   ///
   /// Requires the PackageManager#FEATURE_USB_ACCESSORY feature which can be detected using
   /// PackageManager.hasSystemFeature(String).
-  bool hasAccessoryPermission(int accessoryHashCode);
+  bool hasAccessoryPermission(int hashCode);
+  void requestAccessoryPermission(int hashCode);
 
   /// Returns true if the caller has permission to access the device. Permission might have been granted temporarily via
   /// requestPermission(android.hardware.usb.UsbDevice, android.app.PendingIntent) or by the user
@@ -48,10 +49,8 @@ abstract class MyUsbManagerHostApi {
   ///
   /// Requires the PackageManager#FEATURE_USB_HOST feature which can be detected using
   /// PackageManager.hasSystemFeature(String).
-  bool hasDevicePermission(int deviceHashCode);
-
-  void requestAccessoryPermission(int accessoryHashCode);
-  void requestDevicePermission(int deviceHashCode);
+  bool hasDevicePermission(int hashCode);
+  void requestDevicePermission(int hashCode);
 }
 
 @FlutterApi()

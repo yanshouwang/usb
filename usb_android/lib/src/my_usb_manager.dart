@@ -12,19 +12,17 @@ final myUsbManagerApi = MyUsbManagerHostApi();
 class MyUsbManager extends UsbManager {
   @override
   Stream<UsbDevice> get deviceAttached =>
-      myUsbBroadcastReceiverApi.deviceAttached
-          .map((myHashCode) => MyUsbDevice(myHashCode));
+      myUsbBroadcastReceiverApi.deviceAttached;
   @override
   Stream<UsbDevice> get deviceDetached =>
-      myUsbBroadcastReceiverApi.deviceDetached
-          .map((myHashCode) => MyUsbDevice(myHashCode));
+      myUsbBroadcastReceiverApi.deviceDetached;
 
   @override
   Future<List<UsbAccessory>> getAccessories() async {
-    final myHashCodes = await myUsbManagerApi.getAccessories();
-    return myHashCodes
+    final hashCodes = await myUsbManagerApi.getAccessories();
+    return hashCodes
         .cast<int>()
-        .map((myHashCode) => MyUsbAccessory(myHashCode))
+        .map((hashCode) => MyUsbAccessory(hashCode))
         .toList();
   }
 
@@ -33,19 +31,17 @@ class MyUsbManager extends UsbManager {
     final items = await myUsbManagerApi.getDevices();
     return items
         .cast<String, int>()
-        .map((name, myHashCode) => MapEntry(name, MyUsbDevice(myHashCode)));
+        .map((name, hashCode) => MapEntry(name, MyUsbDevice(hashCode)));
   }
 
   @override
-  Future<bool> hasAccessoryPermission(UsbAccessory accessory) {
-    final myHashCode = (accessory as MyUsbAccessory).myHashCode;
-    return myUsbManagerApi.hasAccessoryPermission(myHashCode);
+  Future<bool> hasAccessoryPermission(UsbAccessory usbAccessory) {
+    return myUsbManagerApi.hasAccessoryPermission(usbAccessory.hashCode);
   }
 
   @override
-  Future<bool> hasDevicePermission(UsbDevice device) {
-    final myHashCode = (device as MyUsbDevice).myHashCode;
-    return myUsbManagerApi.hasDevicePermission(myHashCode);
+  Future<bool> hasDevicePermission(UsbDevice usbDevice) {
+    return myUsbManagerApi.hasDevicePermission(usbDevice.hashCode);
   }
 
   @override
@@ -56,19 +52,17 @@ class MyUsbManager extends UsbManager {
   }
 
   @override
-  Future<bool> requestAccessoryPermission(UsbAccessory accessory) async {
-    final myHashCode = (accessory as MyUsbAccessory).myHashCode;
+  Future<bool> requestAccessoryPermission(UsbAccessory usbAccessory) async {
     final completer = Completer<bool>();
     final subscription =
         myUsbBroadcastReceiverApi.accessoryPermissionReceived.listen((item) {
-      final (myHashCode1, isGranted) = item;
-      if (myHashCode1 != myHashCode) {
+      if (item.$1 != usbAccessory) {
         return;
       }
-      completer.complete(isGranted);
+      completer.complete(item.$2);
     });
     try {
-      await myUsbManagerApi.requestAccessoryPermission(myHashCode);
+      await myUsbManagerApi.requestAccessoryPermission(usbAccessory.hashCode);
       final isGranted = await completer.future;
       return isGranted;
     } finally {
@@ -77,19 +71,17 @@ class MyUsbManager extends UsbManager {
   }
 
   @override
-  Future<bool> requestDevicePermission(UsbDevice device) async {
-    final myHashCode = (device as MyUsbDevice).myHashCode;
+  Future<bool> requestDevicePermission(UsbDevice usbDevice) async {
     final completer = Completer<bool>();
     final subscription =
         myUsbBroadcastReceiverApi.devicePermissionReceived.listen((item) {
-      final (myHashCode1, isGranted) = item;
-      if (myHashCode1 != myHashCode) {
+      if (item.$1 != usbDevice) {
         return;
       }
-      completer.complete(isGranted);
+      completer.complete(item.$2);
     });
     try {
-      await myUsbManagerApi.requestDevicePermission(myHashCode);
+      await myUsbManagerApi.requestDevicePermission(usbDevice.hashCode);
       final isGranted = await completer.future;
       return isGranted;
     } finally {

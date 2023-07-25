@@ -6,40 +6,40 @@ import 'my_object.dart';
 final myUsbInterfaceApi = MyUsbInterfaceHostApi();
 
 class MyUsbInterface extends MyObject implements UsbInterface {
-  MyUsbInterface(super.myHashCode);
+  MyUsbInterface(super.hashCode);
 
   @override
   Future<int> getAlternateSetting() {
-    return myUsbInterfaceApi.getAlternateSetting(myHashCode);
+    return myUsbInterfaceApi.getAlternateSetting(hashCode);
   }
 
   @override
   Future<int> getEndpointCount() {
-    return myUsbInterfaceApi.getEndpointCount(myHashCode);
+    return myUsbInterfaceApi.getEndpointCount(hashCode);
   }
 
   @override
   Future<int> getId() {
-    return myUsbInterfaceApi.getId(myHashCode);
+    return myUsbInterfaceApi.getId(hashCode);
   }
 
   @override
   Future<int> getInterfaceClass() {
-    return myUsbInterfaceApi.getInterfaceClass(myHashCode);
+    return myUsbInterfaceApi.getInterfaceClass(hashCode);
   }
 
   @override
   Future<int> getInterfaceProtocol() {
-    return myUsbInterfaceApi.getInterfaceProtocol(myHashCode);
+    return myUsbInterfaceApi.getInterfaceProtocol(hashCode);
   }
 
   @override
   Future<int> getInterfaceSubclass() {
-    return myUsbInterfaceApi.getInterfaceSubclass(myHashCode);
+    return myUsbInterfaceApi.getInterfaceSubclass(hashCode);
   }
 
   @override
   Future<String?> getName() {
-    return myUsbInterfaceApi.getName(myHashCode);
+    return myUsbInterfaceApi.getName(hashCode);
   }
 }

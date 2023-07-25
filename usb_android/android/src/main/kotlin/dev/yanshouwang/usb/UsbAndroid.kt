@@ -2,6 +2,7 @@ package dev.yanshouwang.usb
 
 import android.content.IntentFilter
 import android.hardware.usb.UsbManager
+import androidx.core.content.ContextCompat
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
 /** UsbPlugin */

@@ -106,7 +106,8 @@ interface MyUsbManagerHostApi {
    * Requires the PackageManager#FEATURE_USB_ACCESSORY feature which can be detected using
    * PackageManager.hasSystemFeature(String).
    */
-  fun hasAccessoryPermission(accessoryHashCode: Long): Boolean
+  fun hasAccessoryPermission(hashCode: Long): Boolean
+  fun requestAccessoryPermission(hashCode: Long)
   /**
    * Returns true if the caller has permission to access the device. Permission might have been granted temporarily via
    * requestPermission(android.hardware.usb.UsbDevice, android.app.PendingIntent) or by the user
@@ -117,9 +118,8 @@ interface MyUsbManagerHostApi {
    * Requires the PackageManager#FEATURE_USB_HOST feature which can be detected using
    * PackageManager.hasSystemFeature(String).
    */
-  fun hasDevicePermission(deviceHashCode: Long): Boolean
-  fun requestAccessoryPermission(accessoryHashCode: Long)
-  fun requestDevicePermission(deviceHashCode: Long)
+  fun hasDevicePermission(hashCode: Long): Boolean
+  fun requestDevicePermission(hashCode: Long)
 
   companion object {
     /** The codec used by MyUsbManagerHostApi. */
@@ -166,28 +166,10 @@ interface MyUsbManagerHostApi {
         if (api != null) {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
-            val accessoryHashCodeArg = args[0].let { if (it is Int) it.toLong() else it as Long }
+            val hashCodeArg = args[0].let { if (it is Int) it.toLong() else it as Long }
             var wrapped: List<Any?>
             try {
-              wrapped = listOf<Any?>(api.hasAccessoryPermission(accessoryHashCodeArg))
-            } catch (exception: Throwable) {
-              wrapped = wrapError(exception)
-            }
-            reply.reply(wrapped)
-          }
-        } else {
-          channel.setMessageHandler(null)
-        }
-      }
-      run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.usb_android.MyUsbManagerHostApi.hasDevicePermission", codec)
-        if (api != null) {
-          channel.setMessageHandler { message, reply ->
-            val args = message as List<Any?>
-            val deviceHashCodeArg = args[0].let { if (it is Int) it.toLong() else it as Long }
-            var wrapped: List<Any?>
-            try {
-              wrapped = listOf<Any?>(api.hasDevicePermission(deviceHashCodeArg))
+              wrapped = listOf<Any?>(api.hasAccessoryPermission(hashCodeArg))
             } catch (exception: Throwable) {
               wrapped = wrapError(exception)
             }
@@ -202,11 +184,29 @@ interface MyUsbManagerHostApi {
         if (api != null) {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
-            val accessoryHashCodeArg = args[0].let { if (it is Int) it.toLong() else it as Long }
+            val hashCodeArg = args[0].let { if (it is Int) it.toLong() else it as Long }
             var wrapped: List<Any?>
             try {
-              api.requestAccessoryPermission(accessoryHashCodeArg)
+              api.requestAccessoryPermission(hashCodeArg)
               wrapped = listOf<Any?>(null)
+            } catch (exception: Throwable) {
+              wrapped = wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.usb_android.MyUsbManagerHostApi.hasDevicePermission", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val hashCodeArg = args[0].let { if (it is Int) it.toLong() else it as Long }
+            var wrapped: List<Any?>
+            try {
+              wrapped = listOf<Any?>(api.hasDevicePermission(hashCodeArg))
             } catch (exception: Throwable) {
               wrapped = wrapError(exception)
             }
@@ -221,10 +221,10 @@ interface MyUsbManagerHostApi {
         if (api != null) {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
-            val deviceHashCodeArg = args[0].let { if (it is Int) it.toLong() else it as Long }
+            val hashCodeArg = args[0].let { if (it is Int) it.toLong() else it as Long }
             var wrapped: List<Any?>
             try {
-              api.requestDevicePermission(deviceHashCodeArg)
+              api.requestDevicePermission(hashCodeArg)
               wrapped = listOf<Any?>(null)
             } catch (exception: Throwable) {
               wrapped = wrapError(exception)

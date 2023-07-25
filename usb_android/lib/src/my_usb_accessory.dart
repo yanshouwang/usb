@@ -6,35 +6,35 @@ import 'my_object.dart';
 final myUsbAccessoryApi = MyUsbAccessoryHostApi();
 
 class MyUsbAccessory extends MyObject implements UsbAccessory {
-  MyUsbAccessory(super.myHashCode);
+  MyUsbAccessory(super.hashCode);
 
   @override
   Future<String?> getDescription() {
-    return myUsbAccessoryApi.getDescription(myHashCode);
+    return myUsbAccessoryApi.getDescription(hashCode);
   }
 
   @override
   Future<String> getManufacturer() {
-    return myUsbAccessoryApi.getManufacturer(myHashCode);
+    return myUsbAccessoryApi.getManufacturer(hashCode);
   }
 
   @override
   Future<String> getModel() {
-    return myUsbAccessoryApi.getModel(myHashCode);
+    return myUsbAccessoryApi.getModel(hashCode);
   }
 
   @override
   Future<String?> getSerial() {
-    return myUsbAccessoryApi.getSerial(myHashCode);
+    return myUsbAccessoryApi.getSerial(hashCode);
   }
 
   @override
   Future<String?> getUri() {
-    return myUsbAccessoryApi.getUri(myHashCode);
+    return myUsbAccessoryApi.getUri(hashCode);
   }
 
   @override
   Future<String?> getVersion() {
-    return myUsbAccessoryApi.getVersion(myHashCode);
+    return myUsbAccessoryApi.getVersion(hashCode);
   }
 }

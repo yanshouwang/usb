@@ -1,7 +1,5 @@
 package dev.yanshouwang.usb
 
-import io.flutter.plugin.common.BinaryMessenger
-
 class MyCollector : MyCollectorHostApi {
     private val instances = mutableMapOf<Long, MyInstance>()
 

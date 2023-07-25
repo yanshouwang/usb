@@ -8,77 +8,79 @@ import 'my_usb_interface.dart';
 final myUsbDeviceApi = MyUsbDeviceHostApi();
 
 class MyUsbDevice extends MyObject implements UsbDevice {
-  MyUsbDevice(super.myHashCode);
+  MyUsbDevice(super.hashCode);
 
   @override
   Future<UsbConfiguration> getConfiguration(int index) async {
-    final id = await myUsbDeviceApi.getConfiguration(myHashCode, index);
-    return MyUsbConfiguration(id);
+    final usbConfigurationHashCode =
+        await myUsbDeviceApi.getConfiguration(hashCode, index);
+    return MyUsbConfiguration(usbConfigurationHashCode);
   }
 
   @override
   Future<int> getConfigurationCount() {
-    return myUsbDeviceApi.getConfigurationCount(myHashCode);
+    return myUsbDeviceApi.getConfigurationCount(hashCode);
   }
 
   @override
   Future<int> getDeviceClass() {
-    return myUsbDeviceApi.getDeviceClass(myHashCode);
+    return myUsbDeviceApi.getDeviceClass(hashCode);
   }
 
   @override
   Future<String> getDeviceName() {
-    return myUsbDeviceApi.getDeviceName(myHashCode);
+    return myUsbDeviceApi.getDeviceName(hashCode);
   }
 
   @override
   Future<int> getDeviceProtocol() {
-    return myUsbDeviceApi.getDeviceProtocol(myHashCode);
+    return myUsbDeviceApi.getDeviceProtocol(hashCode);
   }
 
   @override
   Future<int> getDeviceSubClass() {
-    return myUsbDeviceApi.getDeviceSubClass(myHashCode);
+    return myUsbDeviceApi.getDeviceSubClass(hashCode);
   }
 
   @override
   Future<UsbInterface> getInterface(int index) async {
-    final id = await myUsbDeviceApi.getInterface(myHashCode, index);
-    return MyUsbInterface(id);
+    final usbInterfaceHashCode =
+        await myUsbDeviceApi.getInterface(hashCode, index);
+    return MyUsbInterface(usbInterfaceHashCode);
   }
 
   @override
   Future<int> getInterfaceCount() {
-    return myUsbDeviceApi.getInterfaceCount(myHashCode);
+    return myUsbDeviceApi.getInterfaceCount(hashCode);
   }
 
   @override
   Future<String?> getManufacturerName() {
-    return myUsbDeviceApi.getManufacturerName(myHashCode);
+    return myUsbDeviceApi.getManufacturerName(hashCode);
   }
 
   @override
   Future<int> getProductId() {
-    return myUsbDeviceApi.getProductId(myHashCode);
+    return myUsbDeviceApi.getProductId(hashCode);
   }
 
   @override
   Future<String?> getProductName() {
-    return myUsbDeviceApi.getProductName(myHashCode);
+    return myUsbDeviceApi.getProductName(hashCode);
   }
 
   @override
   Future<String?> getSerialNumber() {
-    return myUsbDeviceApi.getSerialNumber(myHashCode);
+    return myUsbDeviceApi.getSerialNumber(hashCode);
   }
 
   @override
   Future<int> getVendorId() {
-    return myUsbDeviceApi.getVendorId(myHashCode);
+    return myUsbDeviceApi.getVendorId(hashCode);
   }
 
   @override
   Future<String> getVersion() {
-    return myUsbDeviceApi.getVersion(myHashCode);
+    return myUsbDeviceApi.getVersion(hashCode);
   }
 }

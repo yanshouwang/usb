@@ -30,10 +30,10 @@ abstract class UsbManager extends PlatformInterface {
   Future<void> initialize();
   Future<List<UsbAccessory>> getAccessories();
   Future<Map<String, UsbDevice>> getDevices();
-  Future<bool> hasAccessoryPermission(UsbAccessory accessory);
-  Future<bool> hasDevicePermission(UsbDevice device);
-  Future<bool> requestAccessoryPermission(UsbAccessory accessory);
-  Future<bool> requestDevicePermission(UsbDevice device);
+  Future<bool> hasAccessoryPermission(UsbAccessory usbAccessory);
+  Future<bool> hasDevicePermission(UsbDevice usbDevice);
+  Future<bool> requestAccessoryPermission(UsbAccessory usbAccessory);
+  Future<bool> requestDevicePermission(UsbDevice usbDevice);
 }
 
 class _UsbManager extends UsbManager {
@@ -54,12 +54,12 @@ class _UsbManager extends UsbManager {
   }
 
   @override
-  Future<bool> hasAccessoryPermission(UsbAccessory accessory) {
+  Future<bool> hasAccessoryPermission(UsbAccessory usbAccessory) {
     throw UnimplementedError();
   }
 
   @override
-  Future<bool> hasDevicePermission(UsbDevice device) {
+  Future<bool> hasDevicePermission(UsbDevice usbDevice) {
     throw UnimplementedError();
   }
 
@@ -69,12 +69,12 @@ class _UsbManager extends UsbManager {
   }
 
   @override
-  Future<bool> requestAccessoryPermission(UsbAccessory accessory) {
+  Future<bool> requestAccessoryPermission(UsbAccessory usbAccessory) {
     throw UnimplementedError();
   }
 
   @override
-  Future<bool> requestDevicePermission(UsbDevice device) {
+  Future<bool> requestDevicePermission(UsbDevice usbDevice) {
     throw UnimplementedError();
   }
 }

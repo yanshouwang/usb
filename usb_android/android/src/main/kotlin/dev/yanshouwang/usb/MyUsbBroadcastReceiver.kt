@@ -29,7 +29,7 @@ class MyUsbBroadcastReceiver(
                 api.onAccessoryDetached(usbAccessory.hashCode().toLong()) {}
             }
 
-            MyIntent.ACTION_USB_ACCESSORY_PERMISSION -> {
+            MyUsbManager.ACTION_USB_ACCESSORY_PERMISSION -> {
                 val usbAccessory =
                     intent.getParcelableExtra<UsbAccessory>(UsbManager.EXTRA_ACCESSORY) ?: return
                 val isGranted = intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)
@@ -51,7 +51,7 @@ class MyUsbBroadcastReceiver(
                 api.onDeviceDetached(usbDevice.hashCode().toLong()) {}
             }
 
-            MyIntent.ACTION_USB_DEVICE_PERMISSION -> {
+            MyUsbManager.ACTION_USB_DEVICE_PERMISSION -> {
                 val usbDevice =
                     intent.getParcelableExtra<UsbDevice>(UsbManager.EXTRA_DEVICE) ?: return
                 val isGranted = intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)
