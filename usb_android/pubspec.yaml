@@ -1,16 +1,16 @@
 name: usb_android
 description: Android implementation of the usb plugin.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/yanshouwang/usb
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
-  flutter: ">=3.3.0"
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: '>=3.3.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  usb_platform_interface: ^0.0.1
+  usb_platform_interface: ^0.0.2
 
 dev_dependencies:
   flutter_test:
@@ -37,7 +37,7 @@ flutter:
     implements: usb
     platforms:
       android:
-        package: dev.yanshouwang.usb
+        package: dev.yanshouwang.usb_android
         pluginClass: UsbAndroid
         dartPluginClass: UsbAndroid
 

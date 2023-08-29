@@ -1,4 +1,4 @@
-package dev.yanshouwang.usb
+package dev.yanshouwang.usb_android
 
 import android.hardware.usb.UsbAccessory
 

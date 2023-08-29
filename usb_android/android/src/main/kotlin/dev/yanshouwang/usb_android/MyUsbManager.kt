@@ -1,4 +1,4 @@
-package dev.yanshouwang.usb
+package dev.yanshouwang.usb_android
 
 import android.app.PendingIntent
 import android.content.Context
@@ -8,15 +8,13 @@ import android.hardware.usb.UsbDevice
 import android.hardware.usb.UsbManager
 import androidx.core.content.ContextCompat
 
-class MyUsbManager(private val context: Context, private val collector: MyCollector) :
-    MyUsbManagerHostApi {
+class MyUsbManager(private val context: Context, private val collector: MyCollector) : MyUsbManagerHostApi {
     companion object {
         const val ACTION_USB_ACCESSORY_PERMISSION = "dev.yanshouwang.USB_ACCESSORY_PERMISSION"
         const val ACTION_USB_DEVICE_PERMISSION = "dev.yanshouwang.USB_DEVICE_PERMISSION"
     }
 
-    private val usbManager =
-        ContextCompat.getSystemService(context, UsbManager::class.java) as UsbManager
+    private val usbManager = ContextCompat.getSystemService(context, UsbManager::class.java) as UsbManager
 
     override fun getAccessories(): List<Long> {
         return usbManager.accessoryList.map { accessory ->
@@ -33,27 +31,27 @@ class MyUsbManager(private val context: Context, private val collector: MyCollec
         }
     }
 
-    override fun hasAccessoryPermission(accessoryHashCode: Long): Boolean {
-        val accessory = collector.instanceOf(accessoryHashCode) as UsbAccessory
+    override fun hasAccessoryPermission(hashCode: Long): Boolean {
+        val accessory = collector.instanceOf(hashCode) as UsbAccessory
         return usbManager.hasPermission(accessory)
     }
 
-    override fun hasDevicePermission(deviceHashCode: Long): Boolean {
-        val device = collector.instanceOf(deviceHashCode) as UsbDevice
+    override fun hasDevicePermission(hashCode: Long): Boolean {
+        val device = collector.instanceOf(hashCode) as UsbDevice
         return usbManager.hasPermission(device)
     }
 
-    override fun requestAccessoryPermission(accessoryHashCode: Long) {
-        val accessory = collector.instanceOf(accessoryHashCode) as UsbAccessory
+    override fun requestAccessoryPermission(hashCode: Long) {
+        val accessory = collector.instanceOf(hashCode) as UsbAccessory
         val intent = Intent(ACTION_USB_ACCESSORY_PERMISSION)
-        val pi = PendingIntent.getBroadcast(context, 0, intent, 0)
+        val pi = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         return usbManager.requestPermission(accessory, pi)
     }
 
-    override fun requestDevicePermission(deviceHashCode: Long) {
-        val device = collector.instanceOf(deviceHashCode) as UsbDevice
+    override fun requestDevicePermission(hashCode: Long) {
+        val device = collector.instanceOf(hashCode) as UsbDevice
         val intent = Intent(ACTION_USB_DEVICE_PERMISSION)
-        val pi = PendingIntent.getBroadcast(context, 0, intent, 0)
+        val pi = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         return usbManager.requestPermission(device, pi)
     }
 }

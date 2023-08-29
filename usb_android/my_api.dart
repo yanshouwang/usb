@@ -4,9 +4,9 @@ import 'package:pigeon/pigeon.dart';
   PigeonOptions(
     dartOut: 'lib/src/my_api.dart',
     dartOptions: DartOptions(),
-    kotlinOut: 'android/src/main/kotlin/dev/yanshouwang/usb/MyApi.kt',
+    kotlinOut: 'android/src/main/kotlin/dev/yanshouwang/usb_android/MyApi.kt',
     kotlinOptions: KotlinOptions(
-      package: 'dev.yanshouwang.usb',
+      package: 'dev.yanshouwang.usb_android',
     ),
   ),
 )

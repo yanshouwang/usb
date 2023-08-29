@@ -1,4 +1,4 @@
-# usb
+# usb_android
 
 A new Flutter plugin project.
 
