@@ -1,6 +1,7 @@
-package dev.yanshouwang.usb
+package dev.yanshouwang.usb_android
 
 import android.hardware.usb.UsbDevice
+import android.os.Build
 
 class MyUsbDevice(private val collector: MyCollector) : MyUsbDeviceHostApi {
     override fun getDeviceClass(hashCode: Long): Long {
@@ -55,7 +56,11 @@ class MyUsbDevice(private val collector: MyCollector) : MyUsbDeviceHostApi {
 
     override fun getVersion(hashCode: Long): String {
         val usbDevice = collector.instanceOf(hashCode) as UsbDevice
-        return usbDevice.version
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            usbDevice.version
+        } else {
+            throw UnsupportedOperationException()
+        }
     }
 
     override fun getSerialNumber(hashCode: Long): String? {

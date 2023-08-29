@@ -1,4 +1,4 @@
-package dev.yanshouwang.usb
+package dev.yanshouwang.usb_android
 
 class MyCollector : MyCollectorHostApi {
     private val instances = mutableMapOf<Long, MyInstance>()

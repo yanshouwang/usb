@@ -1,4 +1,4 @@
-package dev.yanshouwang.usb
+package dev.yanshouwang.usb_android
 
 class MyInstance(val instance: Any) {
     private var _count = 1
