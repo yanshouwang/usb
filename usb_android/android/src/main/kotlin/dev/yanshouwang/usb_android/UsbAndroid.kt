@@ -41,7 +41,7 @@ class UsbAndroid : FlutterPlugin {
         MyUsbConfigurationHostApi.setUp(binaryMessenger, myUsbConfiguration)
         MyUsbInterfaceHostApi.setUp(binaryMessenger, myUsbInterface)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            context.registerReceiver(myUsbBroadcastReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
+            context.registerReceiver(myUsbBroadcastReceiver, filter, Context.RECEIVER_EXPORTED)
         } else {
             context.registerReceiver(myUsbBroadcastReceiver, filter)
         }

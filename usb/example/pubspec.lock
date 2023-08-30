@@ -98,6 +98,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  intl:
+    dependency: "direct main"
+    description:
+      name: intl
+      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.18.1"
   lints:
     dependency: transitive
     description:
@@ -229,22 +237,23 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.3"
   usb_android:
     dependency: transitive
     description:
-      path: "../../usb_android"
-      relative: true
-    source: path
-    version: "0.0.1"
+      name: usb_android
+      sha256: "4a9e459246cc3e0784aa8e2c947a6af4cf64924b90f56914aa8194423e2d62c8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   usb_platform_interface:
     dependency: transitive
     description:
       name: usb_platform_interface
-      sha256: a61be8a664c5b9b184294e1e8650646a65a99111aceee4bc9ebd1bbf84250011
+      sha256: "6a1da491a307fc7ae21725275eb0ce6a64d62c51327ac9c833f149c7d858e14d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1"
+    version: "0.0.3"
   vector_math:
     dependency: transitive
     description:

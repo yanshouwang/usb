@@ -1,7 +1,11 @@
+## 0.0.3
+
+* 解决适配问题
+
 ## 0.0.2
 
-* TODO: Describe initial release.
+* 适配 Android 33
 
 ## 0.0.1
 
-* TODO: Describe initial release.
+* 支持调用 UsbManager 相关方法 
