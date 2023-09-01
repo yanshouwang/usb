@@ -237,23 +237,23 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.3"
+    version: "0.0.4"
   usb_android:
     dependency: transitive
     description:
       name: usb_android
-      sha256: "4a9e459246cc3e0784aa8e2c947a6af4cf64924b90f56914aa8194423e2d62c8"
+      sha256: "7eff96326cf175a4415e1e8a147a42b51ea0f2800c84a217f2b1b5b4fdb1b110"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.3"
+    version: "0.0.4"
   usb_platform_interface:
     dependency: transitive
     description:
       name: usb_platform_interface
-      sha256: "6a1da491a307fc7ae21725275eb0ce6a64d62c51327ac9c833f149c7d858e14d"
+      sha256: c85a7bb6b88254b704d7bf4956ae483095348b408909cd1f2fc0c41e12ca9616
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.3"
+    version: "0.0.4"
   vector_math:
     dependency: transitive
     description:

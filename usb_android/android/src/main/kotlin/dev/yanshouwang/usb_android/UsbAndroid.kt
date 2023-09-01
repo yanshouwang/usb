@@ -1,9 +1,8 @@
 package dev.yanshouwang.usb_android
 
-import android.content.Context
 import android.content.IntentFilter
 import android.hardware.usb.UsbManager
-import android.os.Build
+import androidx.core.content.ContextCompat
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
 /** UsbPlugin */
@@ -40,11 +39,7 @@ class UsbAndroid : FlutterPlugin {
         MyUsbDeviceHostApi.setUp(binaryMessenger, myUsbDevice)
         MyUsbConfigurationHostApi.setUp(binaryMessenger, myUsbConfiguration)
         MyUsbInterfaceHostApi.setUp(binaryMessenger, myUsbInterface)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            context.registerReceiver(myUsbBroadcastReceiver, filter, Context.RECEIVER_EXPORTED)
-        } else {
-            context.registerReceiver(myUsbBroadcastReceiver, filter)
-        }
+        ContextCompat.registerReceiver(context, myUsbBroadcastReceiver, filter, ContextCompat.RECEIVER_EXPORTED)
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {

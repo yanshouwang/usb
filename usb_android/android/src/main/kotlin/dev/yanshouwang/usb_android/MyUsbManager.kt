@@ -6,6 +6,7 @@ import android.content.Intent
 import android.hardware.usb.UsbAccessory
 import android.hardware.usb.UsbDevice
 import android.hardware.usb.UsbManager
+import android.os.Build
 import androidx.core.content.ContextCompat
 
 class MyUsbManager(private val context: Context, private val collector: MyCollector) : MyUsbManagerHostApi {
@@ -44,14 +45,14 @@ class MyUsbManager(private val context: Context, private val collector: MyCollec
     override fun requestAccessoryPermission(hashCode: Long) {
         val accessory = collector.instanceOf(hashCode) as UsbAccessory
         val intent = Intent(ACTION_USB_ACCESSORY_PERMISSION)
-        val pi = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val pi = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_MUTABLE)
         return usbManager.requestPermission(accessory, pi)
     }
 
     override fun requestDevicePermission(hashCode: Long) {
         val device = collector.instanceOf(hashCode) as UsbDevice
         val intent = Intent(ACTION_USB_DEVICE_PERMISSION)
-        val pi = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val pi = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_MUTABLE)
         return usbManager.requestPermission(device, pi)
     }
 }
