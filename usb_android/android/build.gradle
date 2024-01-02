@@ -3,7 +3,7 @@ version '1.0-SNAPSHOT'
 
 buildscript {
     ext.kotlin_version = '1.7.10'
-    ext.core_version = '1.10.1'
+    ext.core_version = '1.12.0'
     repositories {
         google()
         mavenCentral()
@@ -66,8 +66,4 @@ android {
             }
         }
     }
-}
-
-dependencies {
-    implementation "androidx.core:core-ktx:$core_version"
 }

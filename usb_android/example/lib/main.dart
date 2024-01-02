@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:usb/usb.dart';
+import 'package:usb_platform_interface/usb_platform_interface.dart';
 
 void main() {
   runZonedGuarded(startUp, handleUncaughtError);
@@ -11,7 +11,7 @@ void main() {
 
 void startUp() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await usbManager.initialize();
+  await UsbManager.instance.initialize();
   runApp(const MyApp());
 }
 
@@ -22,8 +22,6 @@ void handleUncaughtError(Object error, StackTrace stack) {
     stackTrace: stack,
   );
 }
-
-UsbManager get usbManager => UsbManager.instance;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -97,7 +95,7 @@ class _HomeViewState extends State<HomeView> {
     final time = DateTime.now();
     final formattedTime = DateFormat.Hms().format(time);
     final vendorId = await device.getVendorId();
-    final productId = await device.getVendorId();
+    final productId = await device.getProductId();
     final log =
         '[$formattedTime] onAttached: ${vendorId.toHexString()} - ${productId.toHexString()}';
     logs.value = [
@@ -110,7 +108,7 @@ class _HomeViewState extends State<HomeView> {
     final time = DateTime.now();
     final formattedTime = DateFormat.Hms().format(time);
     final vendorId = await device.getVendorId();
-    final productId = await device.getVendorId();
+    final productId = await device.getProductId();
     final log =
         '[$formattedTime] onDeatched: ${vendorId.toHexString()} - ${productId.toHexString()}';
     logs.value = [

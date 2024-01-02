@@ -18,14 +18,6 @@ class UsbAndroid : FlutterPlugin {
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         val context = binding.applicationContext
         val binaryMessenger = binding.binaryMessenger
-        val filter = IntentFilter().apply {
-            this.addAction(UsbManager.ACTION_USB_ACCESSORY_ATTACHED)
-            this.addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED)
-            this.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
-            this.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED)
-            this.addAction(MyUsbManager.ACTION_USB_ACCESSORY_PERMISSION)
-            this.addAction(MyUsbManager.ACTION_USB_DEVICE_PERMISSION)
-        }
         myCollector = MyCollector()
         myUsbManager = MyUsbManager(context, myCollector)
         myUsbAccessory = MyUsbAccessory(myCollector)
@@ -39,7 +31,15 @@ class UsbAndroid : FlutterPlugin {
         MyUsbDeviceHostApi.setUp(binaryMessenger, myUsbDevice)
         MyUsbConfigurationHostApi.setUp(binaryMessenger, myUsbConfiguration)
         MyUsbInterfaceHostApi.setUp(binaryMessenger, myUsbInterface)
-        ContextCompat.registerReceiver(context, myUsbBroadcastReceiver, filter, ContextCompat.RECEIVER_EXPORTED)
+        val filter = IntentFilter().apply {
+            this.addAction(UsbManager.ACTION_USB_ACCESSORY_ATTACHED)
+            this.addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED)
+            this.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
+            this.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED)
+            this.addAction(MyUsbManager.ACTION_USB_ACCESSORY_PERMISSION)
+            this.addAction(MyUsbManager.ACTION_USB_DEVICE_PERMISSION)
+        }
+        context.registerReceiver(myUsbBroadcastReceiver, filter)
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
