@@ -1,6 +1,6 @@
 name: usb
 description: A Flutter plugin for controlling the usb.
-version: 0.0.4
+version: 0.0.5
 homepage: https://github.com/yanshouwang/usb
 
 environment:
@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   usb_platform_interface: ^0.0.4
-  usb_android: ^0.0.4
+  usb_android: ^0.0.5
 
 dev_dependencies:
   flutter_test:
