@@ -1,6 +1,6 @@
 /// Contains constants for the USB protocol. These constants correspond to definitions in linux/usb/ch9.h in
 /// the linux kernel.
-abstract class UsbConstants {
+abstract final class USBConstants {
   /// Bitmask used for encoding the request type for a control request on endpoint zero.
   static const usbTypeMask = (0x03 << 5);
 
@@ -26,10 +26,10 @@ abstract class UsbConstants {
   static const usbClassComm = 2;
 
   /// USB class for human interface devices (for example, mice and keyboards).
-  static const usbClassHid = 3;
+  static const usbClassHID = 3;
 
   /// USB class for physical devices.
-  static const usbClassPhysica = 5;
+  static const usbClassPhysical = 5;
 
   /// USB class for still image devices (digital cameras).
   static const usbClassStillImage = 6;
@@ -44,10 +44,10 @@ abstract class UsbConstants {
   static const usbClassHub = 9;
 
   /// USB class for CDC devices (communications device class).
-  static const usbClassCdcData = 0x0a;
+  static const usbClassCDCData = 0x0a;
 
   /// USB class for content smart card devices.
-  static const usbClassCscid = 0x0b;
+  static const usbClassCSCID = 0x0b;
 
   /// USB class for content security devices.
   static const usbClassContentSec = 0x0d;

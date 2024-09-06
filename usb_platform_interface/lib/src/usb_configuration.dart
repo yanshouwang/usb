@@ -1,11 +1,11 @@
 import 'usb_interface.dart';
 
-abstract class UsbConfiguration {
+abstract interface class USBConfiguration {
   Future<int> getId();
   Future<String?> getName();
   Future<int> getMaxPower();
   Future<int> getInterfaceCount();
   Future<bool> getIsRemoteWakeup();
   Future<bool> getIsSelfPowered();
-  Future<UsbInterface> getInterface(int index);
+  Future<USBInterface> getInterface(int index);
 }

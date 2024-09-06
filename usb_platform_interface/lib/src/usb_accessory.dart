@@ -1,4 +1,4 @@
-abstract class UsbAccessory {
+abstract interface class USBAccessory {
   Future<String> getManufacturer();
   Future<String> getModel();
   Future<String?> getDescription();

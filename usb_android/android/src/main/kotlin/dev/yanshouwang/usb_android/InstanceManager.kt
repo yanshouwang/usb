@@ -1,7 +1,7 @@
 package dev.yanshouwang.usb_android
 
-class MyCollector : MyCollectorHostApi {
-    private val instances = mutableMapOf<Long, MyInstance>()
+object InstanceManager {
+    private val instances = mutableMapOf<Long, Instance>()
 
     fun instanceOf(hashCode: Long): Any? {
         return instances[hashCode]?.instance
@@ -11,19 +11,32 @@ class MyCollector : MyCollectorHostApi {
         val hashCode = instance.hashCode().toLong()
         val oldInstance = instances[hashCode]
         if (oldInstance == null) {
-            val newInstance = MyInstance(instance)
+            val newInstance = Instance(instance)
             instances[hashCode] = newInstance
         } else {
             oldInstance.increase()
         }
     }
 
-    override fun free(hashCode: Long) {
+    fun free(hashCode: Long) {
         val instance = instances[hashCode] ?: return
         instance.decrease()
         if (instance.count > 0) {
             return
         }
         instances.remove(hashCode)
+    }
+}
+
+class Instance(val instance: Any) {
+    private var _count = 1
+    val count: Int get() = _count
+
+    fun increase() {
+        _count++
+    }
+
+    fun decrease() {
+        _count--
     }
 }

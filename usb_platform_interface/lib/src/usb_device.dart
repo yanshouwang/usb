@@ -1,7 +1,7 @@
 import 'usb_configuration.dart';
 import 'usb_interface.dart';
 
-abstract class UsbDevice {
+abstract interface class USBDevice {
   Future<int> getDeviceClass();
   Future<int> getDeviceSubClass();
   Future<int> getDeviceProtocol();
@@ -14,6 +14,6 @@ abstract class UsbDevice {
   Future<int> getInterfaceCount();
   Future<String> getVersion();
   Future<String?> getSerialNumber();
-  Future<UsbConfiguration> getConfiguration(int index);
-  Future<UsbInterface> getInterface(int index);
+  Future<USBConfiguration> getConfiguration(int index);
+  Future<USBInterface> getInterface(int index);
 }

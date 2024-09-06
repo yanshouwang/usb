@@ -10,8 +10,6 @@ void main() {
 }
 
 void startUp() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await UsbManager.instance.initialize();
   runApp(const MyApp());
 }
 
@@ -49,18 +47,20 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  late final USBManager usbManager;
   late final ValueNotifier<List<String>> logs;
-  late final StreamSubscription<UsbDevice> deviceAttachedSubscription;
-  late final StreamSubscription<UsbDevice> deviceDetachedSubscription;
+  late final StreamSubscription<USBDevice> deviceAttachedSubscription;
+  late final StreamSubscription<USBDevice> deviceDetachedSubscription;
 
   @override
   void initState() {
     super.initState();
+    usbManager = USBManager();
     logs = ValueNotifier([]);
-    deviceAttachedSubscription = UsbManager.instance.deviceAttached.listen(
+    deviceAttachedSubscription = usbManager.deviceAttached.listen(
       onAttached,
     );
-    deviceDetachedSubscription = UsbManager.instance.deviceDetached.listen(
+    deviceDetachedSubscription = usbManager.deviceDetached.listen(
       onDeatched,
     );
   }
@@ -91,7 +91,7 @@ class _HomeViewState extends State<HomeView> {
     logs.dispose();
   }
 
-  void onAttached(UsbDevice device) async {
+  void onAttached(USBDevice device) async {
     final time = DateTime.now();
     final formattedTime = DateFormat.Hms().format(time);
     final vendorId = await device.getVendorId();
@@ -104,7 +104,7 @@ class _HomeViewState extends State<HomeView> {
     ];
   }
 
-  void onDeatched(UsbDevice device) async {
+  void onDeatched(USBDevice device) async {
     final time = DateTime.now();
     final formattedTime = DateFormat.Hms().format(time);
     final vendorId = await device.getVendorId();

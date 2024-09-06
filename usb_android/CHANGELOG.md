@@ -1,3 +1,8 @@
+## 0.2.0
+
+* Update APIs.
+* Fix requestPermission issue on API 34.
+
 ## 0.0.5
 
 * 修复构建错误

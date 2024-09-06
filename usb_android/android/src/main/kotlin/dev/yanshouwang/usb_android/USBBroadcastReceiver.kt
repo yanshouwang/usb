@@ -9,71 +9,71 @@ import android.hardware.usb.UsbManager
 import android.os.Build
 import io.flutter.plugin.common.BinaryMessenger
 
-class MyUsbBroadcastReceiver(binaryMessenger: BinaryMessenger, private val collector: MyCollector) : BroadcastReceiver() {
-    private val api = MyUsbBroadcastReceiverFlutterApi(binaryMessenger)
+class USBBroadcastReceiver(binaryMessenger: BinaryMessenger) : BroadcastReceiver() {
+    private val api = USBBroadcastReceiverFlutterAPI(binaryMessenger)
 
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {
             UsbManager.ACTION_USB_ACCESSORY_ATTACHED -> {
-                val usbAccessory = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                val accessory = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     intent.getParcelableExtra(UsbManager.EXTRA_ACCESSORY, UsbAccessory::class.java)
                 } else {
                     intent.getParcelableExtra(UsbManager.EXTRA_ACCESSORY)
                 } ?: return
-                collector.allocate(usbAccessory)
-                api.onAccessoryAttached(usbAccessory.hashCode().toLong()) {}
+                InstanceManager.allocate(accessory)
+                api.onAccessoryAttached(accessory.hashCode().toLong()) {}
             }
 
             UsbManager.ACTION_USB_ACCESSORY_DETACHED -> {
-                val usbAccessory = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                val accessory = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     intent.getParcelableExtra(UsbManager.EXTRA_ACCESSORY, UsbAccessory::class.java)
                 } else {
                     intent.getParcelableExtra(UsbManager.EXTRA_ACCESSORY)
                 } ?: return
-                collector.allocate(usbAccessory)
-                api.onAccessoryDetached(usbAccessory.hashCode().toLong()) {}
+                InstanceManager.allocate(accessory)
+                api.onAccessoryDetached(accessory.hashCode().toLong()) {}
             }
 
-            MyUsbManager.ACTION_USB_ACCESSORY_PERMISSION -> {
-                val usbAccessory = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            USBManagerAPI.ACTION_USB_ACCESSORY_PERMISSION -> {
+                val accessory = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     intent.getParcelableExtra(UsbManager.EXTRA_ACCESSORY, UsbAccessory::class.java)
                 } else {
                     intent.getParcelableExtra(UsbManager.EXTRA_ACCESSORY)
                 } ?: return
+                InstanceManager.allocate(accessory)
                 val isGranted = intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)
-                collector.allocate(usbAccessory)
-                api.onAccessoryPermissionReceived(usbAccessory.hashCode().toLong(), isGranted) {}
+                api.onAccessoryPermission(accessory.hashCode().toLong(), isGranted) {}
             }
 
             UsbManager.ACTION_USB_DEVICE_ATTACHED -> {
-                val usbDevice = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                val device = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     intent.getParcelableExtra(UsbManager.EXTRA_DEVICE, UsbDevice::class.java)
                 } else {
                     intent.getParcelableExtra(UsbManager.EXTRA_DEVICE)
                 } ?: return
-                collector.allocate(usbDevice)
-                api.onDeviceAttached(usbDevice.hashCode().toLong()) {}
+                InstanceManager.allocate(device)
+                api.onDeviceAttached(device.hashCode().toLong()) {}
             }
 
             UsbManager.ACTION_USB_DEVICE_DETACHED -> {
-                val usbDevice = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                val device = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     intent.getParcelableExtra(UsbManager.EXTRA_DEVICE, UsbDevice::class.java)
                 } else {
                     intent.getParcelableExtra(UsbManager.EXTRA_DEVICE)
                 } ?: return
-                collector.allocate(usbDevice)
-                api.onDeviceDetached(usbDevice.hashCode().toLong()) {}
+                InstanceManager.allocate(device)
+                api.onDeviceDetached(device.hashCode().toLong()) {}
             }
 
-            MyUsbManager.ACTION_USB_DEVICE_PERMISSION -> {
-                val usbDevice = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            USBManagerAPI.ACTION_USB_DEVICE_PERMISSION -> {
+                val device = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     intent.getParcelableExtra(UsbManager.EXTRA_DEVICE, UsbDevice::class.java)
                 } else {
                     intent.getParcelableExtra(UsbManager.EXTRA_DEVICE)
                 } ?: return
+                InstanceManager.allocate(device)
                 val isGranted = intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)
-                collector.allocate(usbDevice)
-                api.onDevicePermissionReceived(usbDevice.hashCode().toLong(), isGranted) {}
+                api.onDevicePermission(device.hashCode().toLong(), isGranted) {}
             }
 
             else -> {}
