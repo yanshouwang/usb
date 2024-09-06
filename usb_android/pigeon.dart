@@ -1,36 +1,32 @@
+// Run with `dart run pigeon --input pigeon.dart`.
+
 import 'package:pigeon/pigeon.dart';
 
 @ConfigurePigeon(
   PigeonOptions(
-    dartOut: 'lib/src/my_api.dart',
+    dartOut: 'lib/src/usb_pigeon/usb_pigeon.g.dart',
     dartOptions: DartOptions(),
-    kotlinOut: 'android/src/main/kotlin/dev/yanshouwang/usb_android/MyApi.kt',
+    kotlinOut:
+        'android/src/main/kotlin/dev/yanshouwang/usb_android/USBPigeon.g.kt',
     kotlinOptions: KotlinOptions(
       package: 'dev.yanshouwang.usb_android',
     ),
   ),
 )
 @HostApi()
-abstract class MyCollectorHostApi {
+abstract class FinalizerHostAPI {
   void free(int hashCode);
 }
 
 /// This class allows you to access the state of USB and communicate with USB devices. Currently only host mode is
 /// supported in the public API.
 @HostApi()
-abstract class MyUsbManagerHostApi {
+abstract class USBManagerHostAPI {
   /// Returns a list of currently attached USB accessories. (in the current implementation there can be at most one)
   ///
   /// Requires the PackageManager#FEATURE_USB_ACCESSORY feature which can be detected using
   /// PackageManager.hasSystemFeature(String).
   List<int> getAccessories();
-
-  /// Returns a HashMap containing all USB devices currently attached. USB device name is the key for the returned
-  /// HashMap. The result will be empty if no devices are attached, or if USB host mode is inactive or unsupported.
-  ///
-  /// Requires the PackageManager#FEATURE_USB_HOST feature which can be detected using
-  /// PackageManager.hasSystemFeature(String).
-  Map<String, int> getDevices();
 
   /// Returns true if the caller has permission to access the accessory. Permission might have been granted temporarily via
   /// requestPermission(android.hardware.usb.UsbAccessory, android.app.PendingIntent) or by the user
@@ -40,6 +36,13 @@ abstract class MyUsbManagerHostApi {
   /// PackageManager.hasSystemFeature(String).
   bool hasAccessoryPermission(int hashCode);
   void requestAccessoryPermission(int hashCode);
+
+  /// Returns a HashMap containing all USB devices currently attached. USB device name is the key for the returned
+  /// HashMap. The result will be empty if no devices are attached, or if USB host mode is inactive or unsupported.
+  ///
+  /// Requires the PackageManager#FEATURE_USB_HOST feature which can be detected using
+  /// PackageManager.hasSystemFeature(String).
+  Map<String, int> getDevices();
 
   /// Returns true if the caller has permission to access the device. Permission might have been granted temporarily via
   /// requestPermission(android.hardware.usb.UsbDevice, android.app.PendingIntent) or by the user
@@ -51,22 +54,14 @@ abstract class MyUsbManagerHostApi {
   /// PackageManager.hasSystemFeature(String).
   bool hasDevicePermission(int hashCode);
   void requestDevicePermission(int hashCode);
-}
 
-@FlutterApi()
-abstract class MyUsbBroadcastReceiverFlutterApi {
-  void onAccessoryAttached(int hashCode);
-  void onAccessoryDetached(int hashCode);
-  void onAccessoryPermissionReceived(int hashCode, bool isGranted);
-  void onDeviceAttached(int hashCode);
-  void onDeviceDetached(int hashCode);
-  void onDevicePermissionReceived(int hashCode, bool isGranted);
+  int openDevice(int hashCode);
 }
 
 /// A class representing a USB accessory, which is an external hardware component that communicates with an android
 /// application over USB. The accessory is the USB host and android the device side of the USB connection.
 @HostApi()
-abstract class MyUsbAccessoryHostApi {
+abstract class USBAccessoryHostAPI {
   String getManufacturer(int hashCode);
   String getModel(int hashCode);
   String? getDescription(int hashCode);
@@ -84,7 +79,7 @@ abstract class MyUsbAccessoryHostApi {
 /// to send and receive data on an endpoint. UsbDeviceConnection#controlTransfer is used for control requests on
 /// endpoint zero.
 @HostApi()
-abstract class MyUsbDeviceHostApi {
+abstract class USBDeviceHostAPI {
   int getDeviceClass(int hashCode);
   int getDeviceSubClass(int hashCode);
   int getDeviceProtocol(int hashCode);
@@ -110,7 +105,7 @@ abstract class MyUsbDeviceHostApi {
 /// providing a different piece of functionality, separate from the other interfaces. An interface will have one or more
 /// UsbEndpoints, which are the channels by which the host transfers data with the device.
 @HostApi()
-abstract class MyUsbConfigurationHostApi {
+abstract class USBConfigurationHostAPI {
   int getId(int hashCode);
   String? getName(int hashCode);
   int getMaxPower(int hashCode);
@@ -123,7 +118,7 @@ abstract class MyUsbConfigurationHostApi {
 }
 
 @HostApi()
-abstract class MyUsbInterfaceHostApi {
+abstract class USBInterfaceHostAPI {
   int getId(int hashCode);
   int getAlternateSetting(int hashCode);
   int getInterfaceClass(int hashCode);
@@ -131,4 +126,20 @@ abstract class MyUsbInterfaceHostApi {
   int getInterfaceProtocol(int hashCode);
   String? getName(int hashCode);
   int getEndpointCount(int hashCode);
+}
+
+@HostApi()
+abstract class USBDeviceConnectionHostAPI {
+  int getFileDescriptor(int hashCode);
+  void close(int hashCode);
+}
+
+@FlutterApi()
+abstract class USBBroadcastReceiverFlutterAPI {
+  void onAccessoryAttached(int hashCode);
+  void onAccessoryDetached(int hashCode);
+  void onAccessoryPermission(int hashCode, bool isGranted);
+  void onDeviceDetached(int hashCode);
+  void onDeviceAttached(int hashCode);
+  void onDevicePermission(int hashCode, bool isGranted);
 }

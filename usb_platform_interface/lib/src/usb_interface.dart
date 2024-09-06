@@ -1,4 +1,4 @@
-abstract class UsbInterface {
+abstract interface class USBInterface {
   Future<int> getId();
   Future<int> getAlternateSetting();
   Future<int> getInterfaceClass();
